@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Denana & Amnin — 23 Maj 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf6f0;
+      --blush: #e8c9b8;
+      --rose:  #c9826a;
+      --deep:  #3b2a28;
+      --sage:  #8a9e8c;
+      --gold:  #c9a96e;
+      --light: #f3ede5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--deep);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 110%, #e8c9b880 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 10% 20%, #8a9e8c30 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 90% 10%, #c9a96e20 0%, transparent 60%),
+        var(--cream);
+    }
+
+    /* Decorative petals */
+    .petal {
+      position: absolute;
+      border-radius: 50% 0 50% 0;
+      opacity: 0.15;
+      animation: drift linear infinite;
+    }
+    @keyframes drift {
+      0%   { transform: translateY(-80px) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.15; }
+      90%  { opacity: 0.1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-date {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s ease forwards;
+    }
+
+    .hero-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--deep);
+      opacity: 0;
+      animation: fadeUp 1s 0.6s ease forwards;
+    }
+
+    .hero-names em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .hero-amp {
+      display: block;
+      font-size: clamp(2rem, 5vw, 4rem);
+      color: var(--gold);
+      margin: 0.1em 0;
+      font-style: italic;
+    }
+
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--deep);
+      opacity: 0.5;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s ease forwards;
+    }
+
+    .hero-divider {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 2.5rem auto;
+      opacity: 0;
+      animation: fadeUp 1s 1.1s ease forwards;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.85rem 2.5rem;
+      border: 1px solid var(--rose);
+      color: var(--rose);
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      transition: all 0.4s ease;
+      opacity: 0;
+      animation: fadeUp 1s 1.3s ease forwards;
+    }
+    .cta-btn:hover {
+      background: var(--rose);
+      color: var(--cream);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 1.5rem 2rem;
+      background: linear-gradient(to bottom, var(--cream) 0%, transparent 100%);
+    }
+    nav a {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--deep);
+      text-decoration: none;
+      opacity: 0.55;
+      transition: opacity 0.3s;
+    }
+    nav a:hover { opacity: 1; }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--rose); }
+
+    .section-text {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--deep);
+      opacity: 0.75;
+      max-width: 560px;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown-wrap {
+      display: flex;
+      gap: clamp(1rem, 4vw, 3rem);
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      text-align: center;
+      min-width: 70px;
+    }
+    .countdown-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--rose);
+    }
+    .countdown-lbl {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--deep);
+      opacity: 0.4;
+      margin-top: 0.4rem;
+    }
+    .countdown-sep {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      color: var(--gold);
+      opacity: 0.4;
+      align-self: flex-start;
+      margin-top: 0.2rem;
+      line-height: 1;
+    }
+
+    /* ── DETAILS ── */
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .detail-card {
+      background: var(--light);
+      padding: 2rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .detail-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--gold), var(--blush));
+    }
+    .detail-card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .detail-card-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.8rem;
+    }
+    .detail-card-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: var(--deep);
+    }
+
+    /* ── OSA FORM ── */
+    #osa {
+      background: var(--light);
+      max-width: 100%;
+      padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+    }
+    .osa-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.4rem;
+    }
+    .form-group label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--deep);
+      opacity: 0.5;
+      margin-bottom: 0.6rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--cream);
+      border: 1px solid #ddd3c9;
+      padding: 0.85rem 1rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: var(--deep);
+      outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--rose);
+    }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .radio-label input[type="radio"] {
+      width: 16px; height: 16px;
+      accent-color: var(--rose);
+      padding: 0;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 1rem 2rem;
+      background: var(--deep);
+      color: var(--cream);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: var(--rose); }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .success-msg h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--rose);
+      margin-bottom: 0.8rem;
+    }
+    .success-msg p {
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--deep);
+      opacity: 0.35;
+    }
+
+    /* ── ORNAMENT ── */
+    .ornament {
+      text-align: center;
+      color: var(--gold);
+      font-size: 1.5rem;
+      opacity: 0.4;
+      margin: 1rem 0;
+      letter-spacing: 0.5em;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#om">Om oss</a>
+  <a href="#detaljer">Detaljer</a>
+  <a href="#osa">OSA</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Animated petals -->
+  <div class="petal" style="width:40px;height:25px;background:var(--blush);left:10%;animation-duration:12s;animation-delay:0s;"></div>
+  <div class="petal" style="width:25px;height:18px;background:var(--rose);left:25%;animation-duration:15s;animation-delay:2s;"></div>
+  <div class="petal" style="width:35px;height:22px;background:var(--gold);left:60%;animation-duration:11s;animation-delay:4s;"></div>
+  <div class="petal" style="width:20px;height:14px;background:var(--blush);left:80%;animation-duration:14s;animation-delay:1s;"></div>
+  <div class="petal" style="width:30px;height:20px;background:var(--sage);left:45%;animation-duration:13s;animation-delay:6s;"></div>
+  <div class="petal" style="width:22px;height:16px;background:var(--rose);left:70%;animation-duration:16s;animation-delay:3s;"></div>
+
+  <div class="hero-content">
+    <p class="hero-date">23 Maj 2026</p>
+    <h1 class="hero-names">
+      <em>Denana</em>
+      <span class="hero-amp">&amp;</span>
+      <em>Amnin</em>
+    </h1>
+    <div class="hero-sub" style="animation-name:fadeUp">Vi gifter oss</div>
+    <div class="hero-divider"></div>
+    <a href="#osa" class="cta-btn">OSA</a>
+  </div>
+</div>
+
+<!-- OM OSS -->
+<section id="om">
+  <p class="section-label reveal">Vår berättelse</p>
+  <h2 class="section-title reveal">Vi säger <em>ja</em><br>till varandra</h2>
+  <p class="section-text reveal">
+    Med glädje och tacksamhet i hjärtat bjuder vi in er att fira denna speciella dag med oss. 
+    Er närvaro betyder allt för oss — vi ser fram emot att dela denna magiska stund 
+    med de människor vi håller allra kärast.
+  </p>
+  <div class="ornament reveal">✦ ✦ ✦</div>
+
+  <!-- Countdown -->
+  <div id="countdown-section" class="reveal">
+    <p class="section-label">Nedräkning</p>
+    <div class="countdown-wrap" id="countdown"></div>
+  </div>
+</section>
+
+<!-- DETALJER -->
+<section id="detaljer">
+  <p class="section-label reveal">Praktisk information</p>
+  <h2 class="section-title reveal">Dagen då vi<br><em>blir ett</em></h2>
+
+  <div class="details-grid">
+    <div class="detail-card reveal">
+      <div class="detail-card-icon">📅</div>
+      <div class="detail-card-title">Datum</div>
+      <div class="detail-card-text">Lördag<br>23 Maj 2026</div>
+    </div>
+    <div class="detail-card reveal">
+      <div class="detail-card-icon">🕐</div>
+      <div class="detail-card-title">Tid</div>
+      <div class="detail-card-text">Ceremonin börjar<br>kl. 14:00</div>
+    </div>
+    <div class="detail-card reveal">
+      <div class="detail-card-icon">📍</div>
+      <div class="detail-card-title">Plats</div>
+      <div class="detail-card-text">Meddelas<br>inom kort</div>
+    </div>
+    <div class="detail-card reveal">
+      <div class="detail-card-icon">🌸</div>
+      <div class="detail-card-title">Klädkod</div>
+      <div class="detail-card-text">Festklädsel<br>gärna i ljusa färger</div>
+    </div>
+  </div>
+</section>
+
+<!-- OSA -->
+<div id="osa">
+  <div class="osa-inner">
+    <p class="section-label reveal">Svara senast 15 April 2026</p>
+    <h2 class="section-title reveal">OSA — <em>Kommer du?</em></h2>
+    <p class="section-text reveal" style="margin-bottom:2.5rem;">
+      Vi är så glada att du vill dela vår dag med oss. 
+      Fyll i formuläret nedan så vi kan planera inför den stora dagen.
+    </p>
+
+    <div id="form-container">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Förnamn *</label>
+          <input type="text" id="fname" placeholder="Anna" />
+        </div>
+        <div class="form-group">
+          <label>Efternamn *</label>
+          <input type="text" id="lname" placeholder="Svensson" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>E-postadress</label>
+        <input type="email" id="email" placeholder="anna@exempel.se" />
+      </div>
+
+      <div class="form-group">
+        <label>Kan du närvara? *</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="attend" value="ja" /> Ja, jag kommer! 🎉
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="attend" value="nej" /> Tyvärr kan jag inte 😢
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" id="guests-group">
+        <label>Antal gäster (inkl. dig)</label>
+        <select id="guests">
+          <option value="1">1 person</option>
+          <option value="2">2 personer</option>
+          <option value="3">3 personer</option>
+          <option value="4">4 personer</option>
+          <option value="5">5+ personer</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Allergier eller kostrestriktioner</label>
+        <input type="text" id="allergies" placeholder="T.ex. glutenfri, vegan, nötalllergi..." />
+      </div>
+
+      <div class="form-group">
+        <label>Meddelande till brudparet (frivilligt)</label>
+        <textarea id="message" placeholder="Skriv gärna en hälsning till Denana & Amnin..."></textarea>
+      </div>
+
+      <div id="form-error" style="color:var(--rose);font-size:0.8rem;margin-bottom:1rem;display:none;">
+        Vänligen fyll i ditt namn och om du kan närvara.
+      </div>
+
+      <button class="submit-btn" onclick="submitForm()">Skicka svar</button>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🌸</div>
+      <h3 id="success-heading">Tack för ditt svar!</h3>
+      <p id="success-text">Vi ser fram emot att fira med dig.</p>
+    </div>
+
+    <!-- Local list of RSVPs (stored in memory this session) -->
+    <div id="rsvp-list-wrap" style="margin-top:4rem;display:none;">
+      <p class="section-label">Inkomna svar</p>
+      <div id="rsvp-list" style="margin-top:1rem;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Denana &amp; Amnin &mdash; 23 Maj 2026</p>
+  <p style="margin-top:0.5rem;font-style:normal;font-family:'Jost';font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;">Med kärlek</p>
+</footer>
+
+<script>
+  // ── Countdown ──
+  function updateCountdown() {
+    const target = new Date('2026-05-23T14:00:00');
+    const now = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<p style="font-family:\'Cormorant Garamond\',serif;font-size:1.5rem;font-style:italic;color:var(--rose)">Idag är den stora dagen! 🌸</p>';
+      return;
+    }
+
+    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('countdown').innerHTML = `
+      <div class="countdown-item"><div class="countdown-num">${days}</div><div class="countdown-lbl">Dagar</div></div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-item"><div class="countdown-num">${String(hours).padStart(2,'0')}</div><div class="countdown-lbl">Timmar</div></div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-item"><div class="countdown-num">${String(mins).padStart(2,'0')}</div><div class="countdown-lbl">Minuter</div></div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-item"><div class="countdown-num">${String(secs).padStart(2,'0')}</div><div class="countdown-lbl">Sekunder</div></div>
+    `;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── RSVP storage (in-memory) ──
+  const rsvps = [];
+
+  function submitForm() {
+    const fname    = document.getElementById('fname').value.trim();
+    const lname    = document.getElementById('lname').value.trim();
+    const email    = document.getElementById('email').value.trim();
+    const attend   = document.querySelector('input[name="attend"]:checked');
+    const guests   = document.getElementById('guests').value;
+    const allergies = document.getElementById('allergies').value.trim();
+    const message  = document.getElementById('message').value.trim();
+    const errEl    = document.getElementById('form-error');
+
+    if (!fname || !lname || !attend) {
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+
+    const entry = {
+      name: `${fname} ${lname}`,
+      email,
+      attend: attend.value,
+      guests,
+      allergies,
+      message,
+      time: new Date().toLocaleString('sv-SE')
+    };
+    rsvps.push(entry);
+
+    document.getElementById('form-container').style.display = 'none';
+    const sucEl = document.getElementById('success-msg');
+    sucEl.style.display = 'block';
+
+    if (attend.value === 'ja') {
+      document.getElementById('success-heading').textContent = `Vad kul, ${fname}! 🎉`;
+      document.getElementById('success-text').textContent = `Vi ser fram emot att fira med dig den 23 Maj. Vi återkommer med mer information!`;
+    } else {
+      document.getElementById('success-heading').textContent = `Tack för beskedet, ${fname}`;
+      document.getElementById('success-text').textContent = `Vi förstår och hoppas att vi ses snart på ett annat sätt!`;
+    }
+
+    renderRsvpList();
+  }
+
+  function renderRsvpList() {
+    if (rsvps.length === 0) return;
+    const wrap = document.getElementById('rsvp-list-wrap');
+    wrap.style.display = 'block';
+    const list = document.getElementById('rsvp-list');
+    list.innerHTML = rsvps.map(r => `
+      <div style="padding:1rem 0;border-bottom:1px solid #ddd3c9;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;">${r.name}</div>
+          ${r.email ? `<div style="font-size:0.75rem;opacity:0.45;margin-top:0.2rem;">${r.email}</div>` : ''}
+          ${r.message ? `<div style="font-size:0.8rem;opacity:0.55;margin-top:0.4rem;font-style:italic;">"${r.message}"</div>` : ''}
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <span style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.8rem;background:${r.attend==='ja'?'var(--sage)':'var(--blush)'};color:var(--deep);">
+            ${r.attend === 'ja' ? `✓ Kommer · ${r.guests} pers` : '✗ Kan ej'}
+          </span>
+          ${r.allergies ? `<div style="font-size:0.7rem;opacity:0.45;margin-top:0.3rem;">🌿 ${r.allergies}</div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
