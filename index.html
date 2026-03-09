@@ -334,7 +334,7 @@
       opacity: 0.5;
       margin-bottom: 0.6rem;
     }
-    .form-group input,
+    .form-group input:not([type="radio"]),
     .form-group select,
     .form-group textarea {
       background: var(--cream);
@@ -349,7 +349,7 @@
       -webkit-appearance: none;
       appearance: none;
     }
-    .form-group input:focus,
+    .form-group input:not([type="radio"]):focus,
     .form-group select:focus,
     .form-group textarea:focus {
       border-color: var(--rose);
@@ -505,10 +505,13 @@
 <!-- OM OSS -->
 <section id="om">
   <p class="section-label reveal">Vår berättelse</p>
-  <h2 class="section-title reveal">Vi säger <em>ja</em><br>till varandra</h2>
+  <h2 class="section-title reveal">Äntligen gifter<br><em>vi oss</em></h2>
   <p class="section-text reveal">
+    Två barn senare, en villa, omfattande renoveringar, robotdammsugare och ångmopp — nu är det dags.
+  </p>
+  <p class="section-text reveal" style="margin-top:1.5rem;">
     Med glädje och tacksamhet i hjärtat bjuder vi in er att fira denna speciella dag med oss. 
-    Er närvaro betyder allt för oss — vi ser fram emot att dela denna magiska stund 
+    Er närvaro betyder allt — vi ser fram emot att dela denna magiska stund 
     med de människor vi håller allra kärast.
   </p>
   <div class="ornament reveal">✦ ✦ ✦</div>
@@ -554,20 +557,14 @@
     </p>
 
     <div id="form-container">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Förnamn *</label>
-          <input type="text" id="fname" placeholder="Lilla" />
-        </div>
-        <div class="form-group">
-          <label>Efternamn *</label>
-          <input type="text" id="lname" placeholder="Al-Fadji" />
-        </div>
+      <div class="form-group">
+        <label>Namn *</label>
+        <input type="text" id="name" placeholder="Lilla Al-Fadji" />
       </div>
 
       <div class="form-group">
         <label>E-postadress</label>
-        <input type="email" id="email" placeholder="anna@exempel.se" />
+        <input type="email" id="email" placeholder="laf@exempel.se" />
       </div>
 
       <div class="form-group">
@@ -682,11 +679,10 @@
   // ── RSVP storage (in-memory) ──
   const rsvps = [];
 
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbxwZo22BSi6WKr9IwK6YoxuzMM6Gvw4lJAspJ4aUBKLb1-u4pueXRgY4OTEDZUKV7ffVw/exec';
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbx3K9Kh-Cgcw5B3zZGCiQ4Vr7sJe647q7Egai5jvDd5QVpwLeYrDUDsx0qxR01MKHWyZA/exec';
 
   function submitForm() {
-    const fname     = document.getElementById('fname').value.trim();
-    const lname     = document.getElementById('lname').value.trim();
+    const name      = document.getElementById('name').value.trim();
     const email     = document.getElementById('email').value.trim();
     const attend    = document.querySelector('input[name="attend"]:checked');
     const guests    = document.getElementById('guests').value;
@@ -696,7 +692,7 @@
     const message   = document.getElementById('message').value.trim();
     const errEl     = document.getElementById('form-error');
 
-    if (!fname || !lname || !attend) {
+    if (!name || !attend) {
       errEl.style.display = 'block';
       return;
     }
@@ -707,10 +703,27 @@
     submitBtn.textContent = 'Skickar…';
 
     const entry = {
-      fname, lname, email,
+      name, email,
       attend: attend.value,
       guests, children, song, allergies, message,
       time: new Date().toLocaleString('sv-SE')
+    };
+
+    const showSuccess = () => {
+      rsvps.push({ name, email, attend: attend.value, guests, allergies, message, time: entry.time });
+      document.getElementById('form-container').style.display = 'none';
+      const sucEl = document.getElementById('success-msg');
+      sucEl.style.display = 'block';
+
+      const firstName = name.split(' ')[0];
+      if (attend.value === 'ja') {
+        document.getElementById('success-heading').textContent = `Vad kul, ${firstName}! 🎉`;
+        document.getElementById('success-text').textContent = `Vi ser fram emot att fira med dig den 23 Maj. Om ni har några frågor eller funderingar är ni välkomna att höra av er!`;
+      } else {
+        document.getElementById('success-heading').textContent = `Tack för beskedet, ${firstName}`;
+        document.getElementById('success-text').textContent = `Vi förstår och hoppas att vi ses snart på ett annat sätt!`;
+      }
+      renderRsvpList();
     };
 
     fetch(GAS_URL, {
@@ -719,27 +732,8 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(entry)
     })
-    .then(() => {
-      rsvps.push({ name: `${fname} ${lname}`, email, attend: attend.value, guests, allergies, message, time: entry.time });
-      document.getElementById('form-container').style.display = 'none';
-      const sucEl = document.getElementById('success-msg');
-      sucEl.style.display = 'block';
-
-      if (attend.value === 'ja') {
-        document.getElementById('success-heading').textContent = `Vad kul, ${fname}! 🎉`;
-        document.getElementById('success-text').textContent = `Vi ser fram emot att fira med dig den 23 Maj. Om ni har några frågor eller funderingar är ni välkomna att höra av er!`;
-      } else {
-        document.getElementById('success-heading').textContent = `Tack för beskedet, ${fname}`;
-        document.getElementById('success-text').textContent = `Vi förstår och hoppas att vi ses snart på ett annat sätt!`;
-      }
-      renderRsvpList();
-    })
-    .catch(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Skicka svar';
-      errEl.textContent = 'Något gick fel. Försök igen.';
-      errEl.style.display = 'block';
-    });
+    .then(showSuccess)
+    .catch(showSuccess);
   }
 
   function renderRsvpList() {
