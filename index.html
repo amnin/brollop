@@ -577,94 +577,11 @@
 <!-- OSA -->
 <div id="osa">
   <div class="osa-inner">
-    <p class="section-label reveal" style="color:var(--deep);opacity:0.75;">Svara senast 19 April 2026</p>
-    <h2 class="section-title reveal">OSA — <em>Kommer du?</em></h2>
+    <p class="section-label reveal" style="color:var(--deep);opacity:0.75;">OSA stängd</p>
+    <h2 class="section-title reveal">Anmälningstiden<br><em>är avslutad</em></h2>
     <p class="section-text reveal" style="margin-bottom:2.5rem;">
-      Vi är så glada att du vill dela vår dag med oss. 
-      Fyll i formuläret nedan så vi kan planera inför den stora dagen.
+      Anmälningstiden gick ut den 19 april 2026. Vi ser fram emot att fira med er som anmält sig — snart är det dags!
     </p>
-
-    <div id="form-container">
-      <div class="form-group">
-        <label>Namn *</label>
-        <input type="text" id="name" placeholder="Namnin Namnovic" />
-      </div>
-
-      <div class="form-group">
-        <label>E-postadress</label>
-        <input type="email" id="email" placeholder="namn@exempel.se" />
-      </div>
-
-      <div class="form-group">
-        <label>Kan du närvara? *</label>
-        <div class="radio-group">
-          <label class="radio-label">
-            <input type="radio" name="attend" value="ja" /> Ja, jag kommer! 🎉
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="attend" value="nej" /> Tyvärr kan jag inte 😢
-          </label>
-        </div>
-      </div>
-
-      <div class="form-group" id="guests-group">
-        <label>Antal gäster (inkl. dig)</label>
-        <select id="guests">
-          <option value="1">1 person</option>
-          <option value="2">2 personer</option>
-          <option value="3">3 personer</option>
-          <option value="4">4 personer</option>
-          <option value="5">5+ personer</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Antal barn (frivilligt)</label>
-        <p style="font-size:0.9rem;opacity:0.6;margin-bottom:0.75rem;line-height:1.6;">
-          Vi önskar en barnfri kväll för att ni vuxna ska kunna slappna av och festa loss — men vi förstår att det inte alltid är möjligt. Har du barn som behöver följa med är de självklart välkomna.
-        </p>
-        <select id="children">
-          <option value="0">Inga barn</option>
-          <option value="1">1 barn</option>
-          <option value="2">2 barn</option>
-          <option value="3">3 barn</option>
-          <option value="4">4+ barn</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Allergier eller kostrestriktioner</label>
-        <input type="text" id="allergies" placeholder="T.ex. glutenfri, vegan, nötalllergi..." />
-      </div>
-
-      <div class="form-group">
-        <label>Favoritlåtar på fest (frivilligt)</label>
-        <textarea id="song" placeholder="T.ex. Artist — Låttitel&#10;Artist — Låttitel..." style="height:100px;"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>Meddelande till brudparet (frivilligt)</label>
-        <textarea id="message" placeholder="Skriv gärna en hälsning till Denana & Amnin..."></textarea>
-      </div>
-
-      <div id="form-error" style="color:var(--rose);font-size: 0.925rem;margin-bottom:1rem;display:none;">
-        Vänligen fyll i ditt namn och om du kan närvara.
-      </div>
-
-      <button class="submit-btn" onclick="submitForm()">Skicka svar</button>
-    </div>
-
-    <div class="success-msg" id="success-msg">
-      <div style="font-size: 2.625rem;margin-bottom:1rem;">🌸</div>
-      <h3 id="success-heading">Tack för ditt svar!</h3>
-      <p id="success-text">Vi ser fram emot att fira med dig.</p>
-    </div>
-
-    <!-- Local list of RSVPs (stored in memory this session) -->
-    <div id="rsvp-list-wrap" style="margin-top:4rem;display:none;">
-      <p class="section-label">Inkomna svar</p>
-      <div id="rsvp-list" style="margin-top:1rem;"></div>
-    </div>
   </div>
 </div>
 
